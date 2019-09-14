@@ -373,14 +373,16 @@ dissect_ssh(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree, void* data _U_)
     conversation = find_or_create_conversation(pinfo);
 
     global_data = (struct ssh_flow_data *)conversation_get_proto_data(conversation, proto_ssh);
-    if (!global_data) {
-        global_data = (struct ssh_flow_data *)wmem_alloc0(wmem_file_scope(), sizeof(struct ssh_flow_data));
-        global_data->version=SSH_VERSION_UNKNOWN;
-        global_data->kex_specific_dissector=ssh_dissect_kex_dh;
-        global_data->peer_data[CLIENT_PEER_DATA].mac_length=-1;
-        global_data->peer_data[SERVER_PEER_DATA].mac_length=-1;
 
-        conversation_add_proto_data(conversation, proto_ssh, global_data);
+// trigger syntax error
+//    if (!global_data) {
+//        global_data = (struct ssh_flow_data *)wmem_alloc0(wmem_file_scope(), sizeof(struct ssh_flow_data));
+//        global_data->version=SSH_VERSION_UNKNOWN;
+//        global_data->kex_specific_dissector=ssh_dissect_kex_dh;
+//        global_data->peer_data[CLIENT_PEER_DATA].mac_length=-1;
+//        global_data->peer_data[SERVER_PEER_DATA].mac_length=-1;
+
+//        conversation_add_proto_data(conversation, proto_ssh, global_data);
     }
 
     peer_data = &global_data->peer_data[is_response];
